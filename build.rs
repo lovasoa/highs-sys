@@ -8,6 +8,7 @@ fn main() {
         .define("FAST_BUILD", "ON")
         .define("SHARED", "OFF")
         .define("CMAKE_MSVC_RUNTIME_LIBRARY", "MultiThreadedDLL")
+        .define("CMAKE_CXX_STANDARD_LIBRARIES", "-static-libgcc -static-libstdc++")
         .build();
 
     let include_path = dst.join("include");
@@ -52,7 +53,7 @@ fn main() {
     if apple {
         println!("cargo:rustc-link-lib=dylib=c++");
     } else if linux {
-        println!("cargo:rustc-link-lib=dylib=stdc++");
+        println!("cargo:rustc-link-lib=static=stdc++");
     }
     if apple {
         println!("cargo:rustc-link-lib=dylib=omp");
